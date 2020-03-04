@@ -5,15 +5,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="product">
-  <select id="product_list" 
-  resultType="com.example.spring02.model.shop.dto.ProductDTO">
-  	select * from product
-  	order by product_name
-  </select>
-  
-  <select id="detail_product" resultType="com.example.spring02.model.shop.dto.ProductDTO">
-    select * from product
-    where product_id=#{product_id}
-  </select>
+	<select id="product_list"
+		resultType="com.example.spring02.model.shop.dto.ProductDTO">
+		select * from product
+		order by product_name
+	</select>
+
+	<select id="detail_product"
+		resultType="com.example.spring02.model.shop.dto.ProductDTO">
+		select * from product
+		where product_id=#{product_id}
+	</select>
+
+	<!-- 상품 등록 -->
+	<insert id="insert">
+		insert into product values(
+		seq_product.nextval,
+		#{product_name}, #{price}
+		, #{description}, #{picture_url}
+		)
+	</insert>
+
+	<!-- 상품정보 수정 -->
+	<update id="update_product">
+		update product
+		set
+		product_name=#{product_name},
+		price=#{price},
+		description=#{description},
+		picture_url=#{picture_url}
+		where product_id=#{product_id}
+	</update>
+
+	<!-- 첨부파일 이름 -->
+	<select id="fileInfo" resultType="String">
+		select picture_url from product
+		where product_id=#{product_id}
+	</select>
+
+	<!-- 상품 레코드 삭제 -->
+	<delete id="delete_product">
+		delete from product
+		where product_id=#{product_id}
+	</delete>
+
 </mapper>
 

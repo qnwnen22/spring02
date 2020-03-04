@@ -27,26 +27,22 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-
+		sqlsession.update("product.update_product", dto);
 	}
 
 	@Override
 	public void deleteProduct(int product_id) {
-		// TODO Auto-generated method stub
-
+		sqlsession.delete("product.delete_product",product_id);
 	}
 
 	@Override
 	public void insertProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-
+		sqlsession.insert("product.insert",dto);
 	}
 
 	@Override
 	public String fileInfo(int product_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlsession.selectOne("product.fileInfo",product_id);
 	}
 
 }
