@@ -17,8 +17,7 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
 	public List<CartDTO> cartMoney() {
-		// TODO Auto-generated method stub
-		return null;
+		return cartDao.cartMoney();
 	}
 
 	@Override
