@@ -27,7 +27,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login_check.do")
-	public ModelAndView login_chect(MemberDTO dto, HttpSession session) {
+	public ModelAndView login_check(MemberDTO dto, HttpSession session) {
 		//로그인 성공 ture, 실패 false
 		boolean result=memberService.loginCheck(dto, session);
 		ModelAndView mav=new ModelAndView();
