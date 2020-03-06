@@ -27,6 +27,7 @@ create sequence cart_seq
 start with 1
 increment by 1;
 
+--장바구니 상품저장시 cart_id에 시퀀스 처리된 정수값이 함께 저장됨.
 insert into cart (cart_id,userid,product_id,amount) values
 (cart_seq.nextval,'park',1,10);
 
