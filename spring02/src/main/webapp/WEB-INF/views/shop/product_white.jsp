@@ -60,9 +60,10 @@
 				<td><input type="file" name="file1" id="file1"></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="button" value="등록"
-					onclick="product_write()"> <input type="button" value="목록"
-					onclick="location.href='${path}/shop/product/list.do'"></td>
+				<td colspan="2" align="center">
+				<input type="button" value="등록" onclick="product_write()">
+				<input type="button" value="목록" onclick="location.href='${path}/shop/product/list.do'">
+				</td>
 			</tr>
 		</table>
 	</form>

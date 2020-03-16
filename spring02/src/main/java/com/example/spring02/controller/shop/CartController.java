@@ -49,14 +49,14 @@ public class CartController {
 		}
 	}
 	
-	@RequestMapping("insert.do")
+	@RequestMapping("insert.do") //세부적인 url mapping
 	public String insert(HttpSession session, 
 			@ModelAttribute CartDTO dto) {
 		//세션에 userid 변수가 존재하는지 확인
 		String userid = (String)session.getAttribute("userid");
-		if(userid == null) {//로그인 하지 않은 상태
-			return "redirect:/member/login.do"; //로그인 페이지로
-		}
+//		if(userid == null) {//로그인 하지 않은 상태
+//			return "redirect:/member/login.do"; //로그인 페이지로
+//		}
 		//장바구니에 insert 처리 후 장바구니 목록으로 이동
 		dto.setUserid(userid);
 		cartService.insert(dto);

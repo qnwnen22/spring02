@@ -6,6 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp"%>
+<%-- <%@ include file="../include/session_check.jsp" %> --%>
+<!-- 
+각 페이지 마다 위처럼 세션페이지를 include를 해야하는 번거로움이 있어서 
+인터셉터로 대체하면 좋다.
+ -->
+
 <!-- 구글 차트 호출을 위한 js 파일 -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script>

@@ -18,7 +18,7 @@ public class MessageServiceImpl implements MessageService {
 	PointDAO pointDao;
 	
 	//트랜잭션 처리 대상 method
-	@Transactional
+	@Transactional //동기화기능
 	@Override
 	public void addMessage(MessageDTO dto) {
 		//메시지를 테이블에 저장
