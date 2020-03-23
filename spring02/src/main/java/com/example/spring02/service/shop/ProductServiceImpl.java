@@ -11,10 +11,10 @@ import com.example.spring02.model.shop.dto.ProductDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
+	
 	@Inject
 	ProductDAO productDao;
-	
+
 	@Override
 	public List<ProductDTO> listProduct() {
 		return productDao.listProduct();
@@ -33,16 +33,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateProduct(ProductDTO dto) {
 		productDao.updateProduct(dto);
+
 	}
 
 	@Override
 	public void deleteProduct(int product_id) {
 		productDao.deleteProduct(product_id);
+
 	}
 
 	@Override
 	public void insertProduct(ProductDTO dto) {
 		productDao.insertProduct(dto);
+
 	}
 
 }

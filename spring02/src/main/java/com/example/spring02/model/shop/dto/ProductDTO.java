@@ -3,14 +3,13 @@ package com.example.spring02.model.shop.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO {
-
 	private int product_id;
 	private String product_name;
 	private int price;
 	private String description;
 	private String picture_url;
-	//*추가
-	private MultipartFile file1;
+	private MultipartFile file1; //첨부파일
+	//getter,setter,toString()까지만
 	public int getProduct_id() {
 		return product_id;
 	}

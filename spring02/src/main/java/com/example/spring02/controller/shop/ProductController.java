@@ -14,43 +14,48 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.spring02.model.shop.dto.ProductDTO;
 import com.example.spring02.service.shop.ProductService;
 
-@Controller
-@RequestMapping("shop/product/*")
+@Controller 
+@RequestMapping("shop/product/*") //공통적인 url pattern
 public class ProductController {
-
+	
 	@Inject
 	ProductService productService;
 	
-	@RequestMapping("list.do")
+	@RequestMapping("list.do") //세부적인 url pattern
 	public ModelAndView list(ModelAndView mav) {
 		//포워딩할 뷰의 경로
 		mav.setViewName("/shop/product_list");
 		//전달할 데이터
 		mav.addObject("list", productService.listProduct());
 		return mav;
-	}
+	}//list()
+	
 	@RequestMapping("detail/{product_id}")
-	public ModelAndView detail(@PathVariable int product_id, ModelAndView mav) {
+	public ModelAndView detail(@PathVariable int product_id, 
+			ModelAndView mav) {
+		//포워딩할 뷰의 이름
 		mav.setViewName("/shop/product_detail");
+		//뷰에 전달할 데이터
 		mav.addObject("dto", productService.detailProduct(product_id));
 		return mav;
-	}
+	}//detail()
+	
 	@RequestMapping("write.do")
 	public String write() {
-		return "shop/product_white";
+		return "shop/product_write";//product_write.jsp 로 이동
 	}
 	
 	@RequestMapping("insert.do")
 	public String insert(@ModelAttribute ProductDTO dto) {
-		String filename="-"; //초기값으로 "-"
+		String filename="-";//초기값으로 "-"
 		//첨부 파일이 있으면
-		if(!dto.getFile1().isEmpty()) {//isEmpty = 비우다
+		if(!dto.getFile1().isEmpty()) {
 			//첨부 파일의 이름
 			filename=dto.getFile1().getOriginalFilename();
 			try {
-				//배포 디렉토리
+				//배포 디렉토리 사용
 				//단점 : 서버 clean을 하면 이미지가 지워짐
-				//장점 : images폴더를 새로고침 안해도 이미지가 잘나옴
+				//장점 : images폴더를 새로고침 안해도 이미지가 잘 나옴
 				String path="D:\\work\\.metadata\\.plugins"
 						+ "\\org.eclipse.wst.server.core\\tmp0"
 						+ "\\wtpwebapps\\spring02\\"
@@ -59,7 +64,6 @@ public class ProductController {
 				new File(path).mkdir();
 				//임시 디렉토리에 저장됨 첨부파일을 이동
 				dto.getFile1().transferTo(new File(path+filename));
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -67,10 +71,12 @@ public class ProductController {
 		dto.setPicture_url(filename);
 		productService.insertProduct(dto);
 		return "redirect:/shop/product/list.do";
-	}
-	//edit/6 => edit/{6} => 상품코드가 PathVarible에 저장됨
+	}//insert()
+
+	//edit/6 => edit/{6} => 상품코드가 PathVariable에 저장됨
 	@RequestMapping("edit/{product_id}")
-	public ModelAndView edit(@PathVariable("product_id") int product_id, ModelAndView mav) {
+	public ModelAndView edit(@PathVariable("product_id") 
+	int product_id, ModelAndView mav) {
 		//이동할 뷰의 이름
 		mav.setViewName("shop/product_edit");//product_edit.jsp
 		//뷰에 전달할 데이터 저장
@@ -78,17 +84,18 @@ public class ProductController {
 		return mav;
 	}
 	
+	//상품정보 수정
 	@RequestMapping("update.do")
 	public String update(ProductDTO dto) {
 		String filename="-";
 		//새로운 첨부 파일이 있으면
-		if(!dto.getFile1().isEmpty()) {//isEmpty = 비우다
+		if(!dto.getFile1().isEmpty()) {
 			//첨부 파일의 이름
 			filename=dto.getFile1().getOriginalFilename();
 			try {
-				//배포 디렉토리
+				//배포 디렉토리 사용
 				//단점 : 서버 clean을 하면 이미지가 지워짐
-				//장점 : images폴더를 새로고침 안해도 이미지가 잘나옴
+				//장점 : images폴더를 새로고침 안해도 이미지가 잘 나옴
 				String path="D:\\work\\.metadata\\.plugins"
 						+ "\\org.eclipse.wst.server.core\\tmp0"
 						+ "\\wtpwebapps\\spring02\\"
@@ -97,7 +104,6 @@ public class ProductController {
 				new File(path).mkdir();
 				//임시 디렉토리에 저장됨 첨부파일을 이동
 				dto.getFile1().transferTo(new File(path+filename));
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -110,27 +116,34 @@ public class ProductController {
 		//상품정보 수정
 		productService.updateProduct(dto);
 		return "redirect:/shop/product/list.do";
-	}
+	}//update()
 	
 	@RequestMapping("delete.do")
 	public String delete(@RequestParam int product_id) {
 		//첨부파일 삭제
 		String filename=productService.fileInfo(product_id);
 		System.out.println("첨부파일 이름:"+filename);
-		if(filename!=null && !filename.equals("-")) {
+		if(filename != null && !filename.equals("-")) {//파일이 있으면
 			String path="D:\\work\\.metadata\\.plugins"
 					+ "\\org.eclipse.wst.server.core\\tmp0"
 					+ "\\wtpwebapps\\spring02\\"
 					+ "WEB-INF\\views\\images\\";
 			File f=new File(path+filename);
-			System.out.println("파일존재여부:"+f.exists());// exists=존재여부 확인
-			if(f.exists()) {//파일이 존재한다면
-				f.delete(); //파일목록에서 삭제
+			System.out.println("파일존재여부:"+f.exists());
+			if(f.exists()) {//파일이 존재하면
+				f.delete(); //파일 목록 삭제
 				System.out.println("삭제되었습니다.");
-			}
-		}
+			}//inner if
+			
+		}//outer if
 		//레코드 삭제
 		productService.deleteProduct(product_id);
+		//화면 이동
 		return "redirect:/shop/product/list.do";
+		
 	}
+	
+	
+	
+	
 }

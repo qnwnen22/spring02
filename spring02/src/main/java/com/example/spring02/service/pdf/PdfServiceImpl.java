@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.example.spring02.model.member.dto.MemberDTO;
 import com.example.spring02.model.shop.dto.CartDTO;
 import com.example.spring02.service.shop.CartService;
 import com.itextpdf.text.Chunk;
@@ -33,10 +34,13 @@ public class PdfServiceImpl implements PdfService {
 			//pdf 문서 객체
 			Document document=new Document();
 			//pdf 생성 객체
-			PdfWriter writer=PdfWriter.getInstance(document, new FileOutputStream("d:/sample.pdf"));
+			PdfWriter writer=PdfWriter.getInstance(
+					document, new FileOutputStream("d:/sample.pdf"));
 			document.open();
 			//한글이 지원되는 폰트 지정
-			BaseFont baseFont=BaseFont.createFont("c:/windows/fonts/malgun.ttf", BaseFont.IDENTITY_H,BaseFont.EMBEDDED);
+			BaseFont baseFont=BaseFont.createFont(
+					"c:/windows/fonts/malgun.ttf", BaseFont.IDENTITY_H
+					,BaseFont.EMBEDDED);
 			//폰트 사이즈 지정
 			Font font=new Font(baseFont, 12);
 			//4컬럼 테이블 
@@ -76,16 +80,24 @@ public class PdfServiceImpl implements PdfService {
 				table.addCell(cellProductName);//테이블에 셀 추가
 				//				PdfPCell cellPrice=new PdfPCell(
 				//				new Phrase(dto.getPrice()+"", font));
-				PdfPCell cellPrice=new PdfPCell(new Phrase(Integer.toString(dto.getPrice()), font));
-				cellPrice.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				PdfPCell cellPrice=new PdfPCell(
+						new Phrase(Integer.toString(dto.getPrice())
+								, font));
+				cellPrice.setHorizontalAlignment(
+						Element.ALIGN_RIGHT);
+
 				table.addCell(cellPrice);
 
-				PdfPCell cellAmount=new PdfPCell(new Phrase(dto.getAmount()+"", font));
-				cellAmount.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				PdfPCell cellAmount=new PdfPCell(
+						new Phrase(dto.getAmount()+"", font));
+				cellAmount.setHorizontalAlignment(
+						Element.ALIGN_RIGHT);
 				table.addCell(cellAmount);
 
-				PdfPCell cellMoney=new PdfPCell(new Phrase(dto.getMoney()+"", font));
-				cellMoney.setHorizontalAlignment(Element.ALIGN_RIGHT);
+				PdfPCell cellMoney=new PdfPCell(
+						new Phrase(dto.getMoney()+"", font));
+				cellMoney.setHorizontalAlignment(
+						Element.ALIGN_RIGHT);
 				table.addCell(cellMoney);
 			}
 
@@ -103,3 +115,4 @@ public class PdfServiceImpl implements PdfService {
 	}
 
 }
+

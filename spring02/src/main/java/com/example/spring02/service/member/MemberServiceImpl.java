@@ -10,14 +10,14 @@ import com.example.spring02.model.member.dto.MemberDTO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-
+	
 	@Inject
 	MemberDAO memberDao;
-	
+
 	@Override
 	public boolean loginCheck(MemberDTO dto, HttpSession session) {
 		boolean result=memberDao.loginCheck(dto);
-		if(result) { //로그인 성공(result==true)
+		if(result) {//로그인 성공
 			//세션변수에 값 저장
 			MemberDTO dto2=viewMember(dto.getUserid());
 			//setAttribute(변수명,값)
@@ -26,11 +26,13 @@ public class MemberServiceImpl implements MemberService {
 			System.out.println(session.getAttribute("userid"));
 			System.out.println(session.getAttribute("name"));
 		}
+
 		return result;
 	}
 
 	@Override
 	public void logout(HttpSession session) {
+		//세션 초기화
 		session.invalidate();
 	}
 

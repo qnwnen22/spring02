@@ -9,4 +9,6 @@ public interface MessageDAO {
 	public MessageDTO readMessage(int mid);
 	//상태 변경
 	public void updateState(int mid);
+
+
 }

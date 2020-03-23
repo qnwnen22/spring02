@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +48,8 @@ public class MemoController {
 	}
 	
 	@RequestMapping("update/{idx}")
-	public String update(@PathVariable int idx, @ModelAttribute MemoDTO dto) {
+	public String update(@PathVariable int idx, 
+			@ModelAttribute MemoDTO dto) {
 		//메모 수정
 		memoService.update(dto);
 		//수정 완료 후 목록으로 이동
@@ -62,8 +62,6 @@ public class MemoController {
 		memoService.delete(idx);
 		return "redirect:/memo/list.do";
 	}
-	
-	
 	
 
 }

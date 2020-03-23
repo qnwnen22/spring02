@@ -6,7 +6,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+<link
+href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+rel="stylesheet">
+<script src=
+"http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<!-- include summernote css/js -->
+<link href="${path}/summernote/summernote.css" 
+rel="stylesheet">
+<script src="${path}/summernote/summernote.js"></script>
 <script type="text/javascript">
+$(function() {
+	//id가 memo인 태그를 summernote로 변경
+	$("#memo").summernote({
+		height : 500,
+		width : 450
+	});
+});
+//여기까지가 메모 에디더 사용 코드
 $(function(){
 	$("#btnUpdate").click(function(){
 		document.form1.action="${path}/memo/update/${dto.idx}";
@@ -36,7 +53,9 @@ $(function(){
 	</tr>
 	<tr>
 		<td>메모</td>
-		<td><input name="memo" value="${dto.memo}" size="50"></td>
+		<td><%-- <input name="memo" value="${dto.memo}" size="50"> --%>
+			<textarea rows="3" cols="50" name="memo" id="memo">${dto.memo}</textarea>
+		</td>
 	</tr>
 	<tr align="center">
 		<td colspan="2">

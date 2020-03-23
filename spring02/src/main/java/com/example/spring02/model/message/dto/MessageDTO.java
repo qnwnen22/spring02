@@ -3,14 +3,13 @@ package com.example.spring02.model.message.dto;
 import java.util.Date;
 
 public class MessageDTO {
-
 	private int mid;
 	private String targetid;
 	private String sender;
 	private String message;
 	private Date opendate;
 	private Date senddate;
-
+	//getter,setterr,toString()
 	public int getMid() {
 		return mid;
 	}
@@ -47,7 +46,6 @@ public class MessageDTO {
 	public void setSenddate(Date senddate) {
 		this.senddate = senddate;
 	}
-	
 	@Override
 	public String toString() {
 		return "MessageDTO [mid=" + mid + ", targetid=" + targetid + ", sender=" + sender + ", message=" + message

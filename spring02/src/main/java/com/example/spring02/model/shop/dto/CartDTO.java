@@ -1,16 +1,15 @@
 package com.example.spring02.model.shop.dto;
 
 public class CartDTO {
-	
 	private int cart_id;
 	private String userid;
-	private String name; 
+	private String name;
 	private int product_id;
 	private String product_name;
 	private int price;
 	private int money;
 	private int amount;
-
+	//getter,setter, toSring까지만 생성
 	public int getCart_id() {
 		return cart_id;
 	}

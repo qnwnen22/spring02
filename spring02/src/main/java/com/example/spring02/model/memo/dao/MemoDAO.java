@@ -30,4 +30,6 @@ public interface MemoDAO {
 	
 	@Delete("delete from memo where idx=#{idx}")
 	public void delete(@Param("idx") int idx);
+	
+	
 }

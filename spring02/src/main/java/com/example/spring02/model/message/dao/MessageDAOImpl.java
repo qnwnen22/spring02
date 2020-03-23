@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import com.example.spring02.model.message.dto.MessageDTO;
 
-@Repository
+@Repository //dao bean으로 등록
 public class MessageDAOImpl implements MessageDAO {
-
+	
 	@Inject //의존관계 주입시 2개이상이면 따로 처리
 	SqlSession sqlSession;
-	
+
 	@Override
 	public void create(MessageDTO dto) {
-		sqlSession.insert("message.create",dto);
+		sqlSession.insert("message.create", dto);
 	}
 
 	@Override

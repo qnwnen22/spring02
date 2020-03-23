@@ -1,12 +1,11 @@
 package com.example.spring02.model.message.dto;
 
 public class UserDTO {
-
 	private String userid;
 	private String upw;
 	private String uname;
 	private int upoint;
-
+	//getter,setter,toString()
 	public String getUserid() {
 		return userid;
 	}

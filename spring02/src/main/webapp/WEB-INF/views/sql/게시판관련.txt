@@ -1,0 +1,65 @@
+-- cascade constraints 제약조건까지 모두 삭제
+drop table board cascade constraints;
+
+--게시판 테이블
+create table board (
+bno number not null, --게시물번호
+title varchar2(200) not null, --제목
+content clob, --본문
+writer varchar2(50) not null, --작성자
+regdate date default sysdate, --작성일자
+viewcnt number default 0, --조회수
+primary key(bno)
+);
+
+insert into board (bno,title,content,writer) values
+(1,'제목','내용','kim');
+
+select * from board;
+
+
+
+--댓글 테이블
+drop table reply cascade constraints;
+create table reply (
+rno number not null primary key,
+bno number default 0,
+replytext varchar2(1000) not null,
+replyer varchar2(50) not null,
+regdate date default sysdate,
+updatedate date default sysdate
+);
+--foreign key 제약조건 추가
+alter table reply add constraint fk_board
+foreign key(bno) references board(bno);
+
+--시퀀스 생성
+drop sequence reply_seq;
+create sequence reply_seq
+start with 1
+increment by 1;
+
+--첨부파일 테이블
+--drop table attach cascade constraints;
+create table attach (
+fullName varchar2(150) not null, --첨부파일 이름
+bno number not null, --board 테이블의 글번호
+regdate date default sysdate, --업로드 날짜
+primary key(fullName) --uuid적용한 파일이름
+);
+
+--bno 컬럼에 foreign key 설정
+alter table attach add constraint fk_board_attach
+foreign key(bno) references board(bno);
+
+
+select bno,title,writer,name,regdate,viewcnt
+from board b, member m
+where b.writer=m.userid
+order by bno desc;
+
+select * from member;
+
+
+
+

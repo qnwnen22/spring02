@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -20,12 +21,14 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<!-- 리소스 매핑 -->
 	<resources location="/WEB-INF/views/include/"
 		mapping="/include/**" />
 	<resources location="/WEB-INF/views/images/"
 		mapping="/images/**"></resources>
-	<resources location="/WEB-INF/views/json/"
-		mapping="/json/**"></resources>
+	<resources location="/WEB-INF/views/json/" mapping="/json/**"></resources>
+	<resources location="/WEB-INF/views/summernote/" mapping="/summernote/**" />
+	<resources location="/WEB-INF/views/ckeditor/" mapping="/ckeditor/**" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -50,9 +53,9 @@
 		<beans:constructor-arg value="d:/upload" />
 	</beans:bean>
 
-<!-- aop의 설정으로 Proxy 객체를 자동으로 생성 -->
+	<!-- aop의 설정으로 Proxy 객체를 자동으로 생성 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-	
+
 	<!-- 인터셉터 빈을 등록 -->
 	<beans:bean id="sampleInterceptor"
 		class="com.example.spring02.interceptor.SampleInterceptor">
@@ -69,19 +72,22 @@
 			<beans:ref bean="sampleInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/shop/cart/list.do"/>
-			<mapping path="/shop/cart/insert.do"/>
-			<beans:ref bean="loginInterceptor"/>
+			<mapping path="/board/write.do" />
+			<mapping path="/board/insert.do" />
+			<mapping path="/board/update.do" />
+			<mapping path="/board/delete.do" />
+			<mapping path="/shop/cart/list.do" />
+			<mapping path="/shop/cart/insert.do" />
+			<beans:ref bean="loginInterceptor" />
 		</interceptor>
 		<interceptor>
-		  <mapping path="/pdf/list.do"/>
-		  <mapping path="/shop/product/write.do" />
-		  <mapping path="/shop/product/insert.do" />
-		  <mapping path="/chart/**"/>
-		  <mapping path="/jchart/**"/>
-		  <beans:ref bean="adminInterceptor" />
+			<mapping path="/pdf/list.do" />
+			<mapping path="/shop/product/write.do" />
+			<mapping path="/shop/product/insert.do" />
+			<mapping path="/chart/**" />
+			<mapping path="/jchart/**" />
+			<beans:ref bean="adminInterceptor" />
 		</interceptor>
-
 	</interceptors>
-	
+
 </beans:beans>

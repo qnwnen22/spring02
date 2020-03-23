@@ -10,7 +10,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <a href="${path}/chart/chart1.do">구글차트(json)</a> | 
 <a href="${path}/chart/chart2.do">구글차트(db)</a> | 
 <a href="${path}/jchart/chart1.do">JFreeChart(png)</a> | 
-<a href="${path}/jchart/chart2.do">JFreeChart(pdf)</a> | 
+<a href="${path}/jchart/chart2.do">JFreeChart(pdf)</a> |
+<a href="${path}/email/write.do">이메일 발송</a> | 
 
 <div style="text-align:right;">
 	<c:choose>

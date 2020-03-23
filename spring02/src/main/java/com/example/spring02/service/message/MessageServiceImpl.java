@@ -11,22 +11,21 @@ import com.example.spring02.model.message.dto.MessageDTO;
 
 @Service
 public class MessageServiceImpl implements MessageService {
-
+	
+	//Inject는 각각 해야 함
 	@Inject
 	MessageDAO messageDao;
 	@Inject
 	PointDAO pointDao;
-	
+
 	//트랜잭션 처리 대상 method
-	@Transactional //동기화기능
+	@Transactional
 	@Override
 	public void addMessage(MessageDTO dto) {
 		//메시지를 테이블에 저장
 		messageDao.create(dto);
 		//메시지를 보낸 회원에게 10포인트 추가
 		pointDao.updatePoint(dto.getSender(), 10);
-		
-		
 	}
 
 	@Override

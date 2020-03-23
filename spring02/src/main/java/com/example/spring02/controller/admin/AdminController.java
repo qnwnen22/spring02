@@ -10,8 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.spring02.model.member.dto.MemberDTO;
 import com.example.spring02.service.admin.AdminService;
 
+
 @Controller
 @RequestMapping("admin/*") //공통적인 url mapping
+
 public class AdminController {
 	@Inject
 	AdminService adminService;
@@ -42,7 +44,7 @@ public class AdminController {
 	
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.invalidate();//세션 초기화
 		//관리자 로그인 페이지로 이동
 		return "redirect:/admin/login.do";
 	}
