@@ -1,5 +1,7 @@
 package com.example.spring02.service.member;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -39,6 +41,33 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO viewMember(String userid) {
 		return memberDao.viewMember(userid);
+	}
+
+	@Override
+	public List<MemberDTO> list() {
+		return memberDao.list();
+		
+	}
+
+	@Override
+	public void insertMember(MemberDTO dto) {
+		memberDao.insertMember(dto);//create method
+	}
+
+	@Override
+	public boolean checkPw(String userid, String passwd) {
+		return memberDao.checkPw(userid, passwd);
+	}
+
+	@Override
+	public void updateMember(MemberDTO dto) {
+		memberDao.updateMember(dto);
+	}
+
+	@Override
+	public void deleteMember(String userid) {
+		memberDao.deleteMember(userid);
+		
 	}
 
 }

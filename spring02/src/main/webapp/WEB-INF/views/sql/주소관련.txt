@@ -1,0 +1,14 @@
+alter table member add addr1 varchar2(50);
+alter table member add addr2 varchar2(200);
+alter table member add addr3 varchar2(200);
+
+desc member;
+
+insert into member
+ (userid,passwd,name,email,addr1,addr2,addr3)
+values ('mire','1234','홍길동','hong@gmail.com'
+,'12345','서울강동구천호대로','3층,미래능력개발교육원');
+
+select * from member;
+
+commit;

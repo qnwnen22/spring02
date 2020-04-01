@@ -25,6 +25,23 @@ resultType="com.example.spring02.model.board.dto.BoardDTO">
 		    ) A
 		) where rn between #{start} and #{end}	
 	</sql>
+	<!-- 검색기능, sql태그는 다른 태그에 끼워넣을 수 있는 기능을 가지고 있음 -->
+  	<sql id="search">
+		<choose>
+			<when test="search_option != 'all' ">
+				where b.writer=m.userid 
+				    and show='Y'
+				    and ${search_option} like #{keyword}			
+			</when>
+			<otherwise>
+				where b.writer=m.userid 
+				    and show='Y'
+				    and (name like #{keyword} 
+				        or title like #{keyword}
+				        or content like #{keyword} )			
+			</otherwise>
+		</choose>
+	</sql>
 
   
   <insert id="insert">
@@ -44,25 +61,6 @@ resultType="com.example.spring02.model.board.dto.BoardDTO">
 		from board b,member m	
 		<include refid="search" />
 	</select>
-
-  <!-- 검색기능, sql태그는 다른 태그에 끼워넣을 수 있는 기능을 가지고 있음 -->
-  	<sql id="search">
-		<choose>
-			<when test="search_option != 'all' ">
-				where b.writer=m.userid 
-				    and show='Y'
-				    and ${search_option} like #{keyword}			
-			</when>
-			<otherwise>
-				where b.writer=m.userid 
-				    and show='Y'
-				    and (name like #{keyword} 
-				        or title like #{keyword}
-				        or content like #{keyword} )			
-			</otherwise>
-		</choose>
-	</sql>
-
   
   <!-- 조회수 증가 처리 -->
   <update id="increateViewcnt">
