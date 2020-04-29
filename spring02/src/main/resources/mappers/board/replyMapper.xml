@@ -5,20 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="reply">
-	<insert id="insertReply">
-		insert into reply (rno,bno,replytext,replyer) values
-		( reply_seq.nextval,
-		#{bno}, #{replytext}, #{replyer} )
-	</insert>
-
-	<select id="listReply"
-		resultType="com.example.spring02.model.board.dto.ReplyDTO">
-		select rno,bno,replyer,regdate,updatedate,name,replytext
+  <insert id="insertReply">
+    insert into reply (rno,bno,replytext,replyer) values
+		( reply_seq.nextval, #{bno}, #{replytext}, #{replyer} )
+  </insert>
+  
+  <select id="listReply" 
+  resultType="com.example.spring02.model.board.dto.ReplyDTO">
+    select rno,bno,replyer,regdate,updatedate,name,replytext
 		from reply r, member m
 		where r.replyer=m.userid and bno=#{bno}
 		order by rno
-	</select>
-
+  </select>
+	
 </mapper>
 
 

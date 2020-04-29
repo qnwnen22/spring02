@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/header.jsp" %>
 <%-- <%@ include file="../include/session_check.jsp" %> --%>
-<!-- 
-각 페이지 마다 위처럼 세션페이지를 include를 해야하는 번거로움이 있어서 
-인터셉터로 대체하면 좋다.
- -->
+<!-- 각 페이지 마다 위처럼 세션페이지를 include해야하는 번거로움이 있어서
+인터셉터로 대체하면 좋다. -->
 
 <!-- 구글 차트 호출을 위한 js 파일 -->
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" 
+src="https://www.google.com/jsapi"></script>
 <script>
 	//구글 차트 라이브러리 로딩
 	google.load("visualization","1", {
@@ -34,10 +33,10 @@
 		console.log("데이터 테이블:"+data);
  		var chart=new google.visualization.PieChart(
 				document.getElementById("chart_div")); 
-		/* 	var chart=new google.visualization.LineChart(
-						document.getElementById("chart_div")); */
-		/* 	var chart=new google.visualization.ColumnChart(
-						document.getElementById("chart_div")); */	
+/* 	var chart=new google.visualization.LineChart(
+				document.getElementById("chart_div")); */
+/* 	var chart=new google.visualization.ColumnChart(
+				document.getElementById("chart_div")); */	
 		chart.draw(data, {
 			title: "차트 예제",
 			//curveType: "function", //곡선 처리		
@@ -48,9 +47,11 @@
 </script>
 </head>
 <body>
-	<%@ include file="../include/admin_menu.jsp"%>
-	<div id="chart_div"></div>
-	<button id="btn" type="button" onclick="drawChart()">refresh</button>
+<%@ include file="../include/admin_menu.jsp" %>
+<div id="chart_div"></div>
+<button id="btn" type="button" onclick="drawChart()">
+refresh</button>
 
 </body>
 </html>
+				

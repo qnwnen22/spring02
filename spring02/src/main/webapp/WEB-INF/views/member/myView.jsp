@@ -11,18 +11,9 @@
 function daumZipCode() {
 	 new daum.Postcode({
 	     oncomplete: function(data) {
-	// 팝업에서 검색결과 항목을 클릭했을때 
-	//실행할 코드를 작성하는 부분.
-
-	         // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 
-	//이를 참고하여 분기 한다.
 	         var fullAddr = ''; // 최종 주소 변수
 	         var extraAddr = ''; // 조합형 주소 변수
-
-	         // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 
-	         //가져온다.
-	// 사용자가 도로명 주소를 선택했을 경우         
+        
 	         if (data.userSelectedType === 'R') { 
 	             fullAddr = data.roadAddress;
 
@@ -57,17 +48,10 @@ function daumZipCode() {
 	 }).open();
 	}
 
-
 $(function(){
 	$("#btnUpdate").click(function(){
-		document.form1.action="${path}/member/update.do";
+		document.form1.action="${path}/member/myupdate.do";
 		document.form1.submit();
-	});
-	$("#btnDelete").click(function(){
-		if(confirm("삭제하시겠습니까?")){
-			document.form1.action="${path}/member/delete.do";
-			document.form1.submit();
-		}
 	});
 });
 </script>
@@ -126,7 +110,6 @@ $(function(){
 	<tr>
 		<td colspan="2" align="center">
 			<input type="button" value="수정" id="btnUpdate">
-			<input type="button" value="삭제" id="btnDelete">
 			<div style="color: red;">${message}</div>	
 		</td>
 	</tr>

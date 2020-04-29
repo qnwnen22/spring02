@@ -5,11 +5,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="message">
-	<insert id="create">
-		insert into tbl_message (mid,targetid,sender,message)
-		values (
-		message_seq.nextval
-		, #{targetid}, #{sender}, #{message} )
-	</insert>
+  <insert id="create">
+    insert into tbl_message (mid,targetid,sender,message)
+		values ( message_seq.nextval
+						, #{targetid}, #{sender}, #{message} )	
+  </insert>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
 

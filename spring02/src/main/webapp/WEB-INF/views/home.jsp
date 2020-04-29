@@ -12,7 +12,7 @@
 <body>
 <%@ include file="include/menu.jsp" %>
 <!-- 세션변수가 존재하면 -->
-<c:if test="${sessionScope.userid != null}">
+<c:if test="${sessionScope.userid != null }">
 	<h2>
 		${sessionScope.name}
 		(${sessionScope.userid})님의 방문을 환영합니다.
@@ -24,6 +24,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <!-- 실제로 서비스되는 디렉토리(배포 디렉토리) -->
-<%=application.getRealPath("/") %>
+<%=application.getRealPath("/WEB-INF/views/images/") %>
 </body>
 </html>

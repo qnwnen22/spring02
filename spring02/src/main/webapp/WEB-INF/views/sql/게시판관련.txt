@@ -12,6 +12,11 @@ viewcnt number default 0, --조회수
 primary key(bno)
 );
 
+-- board에 시퀀스를 추가
+create sequence seq_board
+start with 1
+increment by 1;
+
 insert into board (bno,title,content,writer) values
 (1,'제목','내용','kim');
 
@@ -59,6 +64,42 @@ where b.writer=m.userid
 order by bno desc;
 
 select * from member;
+
+
+delete from attach;
+delete from board;
+
+--페이지 나누기 테스트를 위해 레코드 입력
+declare --선언부
+    i number := 1;
+begin --실행부
+    while i<=991 loop
+        insert into board (bno,title,content,writer)
+        values
+        ( (select nvl(max(bno)+1,1) from board)
+        ,'제목'||i, '내용'||i, 'kim');
+        i := i+1; --조건 변경
+    end loop;
+end;
+/
+
+select * from board;
+
+--레코드 갯수 확인
+select count(*) from board;
+
+commit;
+
+--글쓰기를 하기 위해
+--시퀀스 삭제
+drop sequence seq_board;
+
+--1000번부터 시작하는 시퀀스 생성
+create sequence seq_board
+start with 1000
+increment by 1;
+commit;
+
 
 
 

@@ -5,61 +5,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="cart">
-	<select id="listCart"
-		resultType="com.example.spring02.model.shop.dto.CartDTO">
-		select cart_id, m.userid, name, p.product_id, product_name,
-		amount, price, price*amount money
+  <select id="listCart" 
+  resultType="com.example.spring02.model.shop.dto.CartDTO">
+  select cart_id, m.userid, name
+		    , p.product_id, product_name, amount, price
+		    , price*amount money
 		from member m, cart c, product p
-		where
-		m.userid=c.userid and p.product_id=c.product_id
-		and
-		m.userid=#{userid}
-	</select>
-
+		where m.userid=c.userid and p.product_id=c.product_id
+		    and m.userid=#{userid}
+  </select>
+  
 	<insert id="insert">
-		insert into cart
-		(cart_id,userid,product_id,amount)
-		values
-		(cart_seq.nextval,#{userid},#{product_id},#{amount})
-	</insert>
+		insert into cart (cart_id,userid,product_id,amount) 
+		values 
+		  (cart_seq.nextval,#{userid}, #{product_id}, #{amount})	
+	</insert>	
 
-	<select id="sumMoney" resultType="int">
-		select nvl(sum(price*amount),0)
-		money
-		from product p, cart c
-		where p.product_id=c.product_id
-		and
-		userid=#{userid}
-	</select>
-
-	<!-- 장바구니 개별 상품 삭제 -->
-	<delete id="delete">
-		delete from cart
+  
+  <select id="sumMoney" resultType="int">
+    select nvl(sum(price*amount),0) money
+		from product p, cart c 
+		where p.product_id=c.product_id 
+		    and userid=#{userid}	
+  </select>
+  
+  <!-- 장바구니 개별 상품 삭제 -->
+  <delete id="delete">
+    delete from cart
+    where cart_id=#{cart_id}
+  </delete>
+  
+  <!-- 장바구니 비우기 -->
+  <delete id="deleteAll">
+    delete from cart
+    where userid=#{userid}
+  </delete>
+  
+  <!-- 장바구니 수정 -->
+  <update id="modifyCart">
+    update cart 
+		set	amount=#{amount}
 		where cart_id=#{cart_id}
-	</delete>
-
-	<!-- 장바구니 비우기 -->
-	<delete id="deleteAll">
-		delete from cart
-		where userid=#{userid}
-	</delete>
-
-	<update id="modifyCart">
-		update cart
-		set amount=#{amount}
-		where
-		cart_id=#{cart_id}
-	</update>
-
-	<!-- 상품별 장바구니 금액 통계 -->
-	<select id="cart_money"
-		resultType="com.example.spring02.model.shop.dto.CartDTO">
-		select product_name, sum(price*amount) money
-		from cart c,
-		product p
-		where c.product_id=p.product_id
-		group by product_name
-		order by product_name
-	</select>
+  </update>
+  
+  <!-- 상품별 장바구니 금액 통계 -->
+  <select id="cart_money" 
+  resultType="com.example.spring02.model.shop.dto.CartDTO">
+    select product_name, sum(price*amount) money
+		from cart c, product p 
+		where c.product_id=p.product_id   
+		group by product_name 
+		order by product_name	
+  </select>
+  
+  
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
 

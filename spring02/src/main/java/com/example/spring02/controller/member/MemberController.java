@@ -40,30 +40,51 @@ public class MemberController {
 		return "member/member_list";
 	}
 	
-	//회원등록페이지
-	@RequestMapping("member/write.do") //url mapping
+	//관리자용회원등록페이지
+	@RequestMapping("write.do") //url mapping
 	public String write() {
 		//WEB-INF/views/member/write.jsp로 포워딩
 		return "member/write";
 	}
 	
-	//회원등록
-	@RequestMapping("member/insert.do")
+	//일반회원용회원등록페이지
+	@RequestMapping("mywrite.do") //url mapping
+	public String myWrite() {
+		return "member/my_write";
+	}
+	
+	//관리자용회원등록
+	@RequestMapping("insert.do")
 	public String insert(@ModelAttribute MemberDTO dto) {
 		memberService.insertMember(dto);//create method 눌러
 		return "redirect:/member/list.do";
 	}
 	
+	//일반회원용회원등록
+	@RequestMapping("myinsert.do")
+	public String myInsert(@ModelAttribute MemberDTO dto) {
+		memberService.insertMember(dto);//create method 눌러
+		return "redirect:/";//home.jsp 메인홈으로 이동
+	}
+	
 	//회원수정관련
-	@RequestMapping("member/view.do")
+	@RequestMapping("view.do")
 	public String view(@RequestParam String userid, Model model) {
 		//모델에 자료 저장
 		model.addAttribute("dto", memberService.viewMember(userid));
 		return "member/view";//view.jsp로 포워딩
 	}
 	
+	//나의회원수정관련
+	@RequestMapping("myview.do")
+	public String myView(@RequestParam String userid, Model model) {
+		//모델에 자료 저장
+		model.addAttribute("dto", memberService.viewMember(userid));
+		return "member/myView";//view.jsp로 포워딩
+	}
+	
 	//회원수정
-	@RequestMapping("member/update.do")
+	@RequestMapping("update.do")
 	public String update(MemberDTO dto, Model model) {
 		//비밀번호 체크
 		boolean result=memberService.checkPw(dto.getUserid(), dto.getPasswd());//create method
@@ -81,8 +102,28 @@ public class MemberController {
 		}
 	}//update()
 	
+	
+	//내정보수정
+	@RequestMapping("myupdate.do")
+	public String myupdate(MemberDTO dto, Model model) {
+		//비밀번호 체크
+		boolean result=memberService.checkPw(dto.getUserid(), dto.getPasswd());//create method
+		if(result) {//비밀번호가 맞으면
+			//회원정보 수정
+			memberService.updateMember(dto);//create method
+			//수정 후 목록으로 이동
+			return "redirect:/";//home.jsp로 이동
+		}else {//비밀번호가 틀리면
+			model.addAttribute("dto", dto);
+			model.addAttribute("join_date", 
+					memberService.viewMember(dto.getUserid()).getJoin_date());
+			model.addAttribute("message", "비밀번호를 확인하세요.");
+			return "member/myView";
+		}
+	}//update()
+	
 	//회원삭제
-	@RequestMapping("member/delete.do")
+	@RequestMapping("delete.do")
 	public String delete(String userid, String passwd, Model model) {
 		boolean result=memberService.checkPw(userid, passwd);
 		if(result) {//비번이 맞으면 삭제 => 목록으로 이동
@@ -94,6 +135,7 @@ public class MemberController {
 			return "member/view";
 		}
 	}
+	
 	
 	@RequestMapping("login.do") //세부 url
 	public String login() {
@@ -125,7 +167,5 @@ public class MemberController {
 		mav.addObject("message", "logout");
 		return mav;
 	}
-	
-
 
 }

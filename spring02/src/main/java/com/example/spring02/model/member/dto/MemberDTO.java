@@ -7,12 +7,11 @@ public class MemberDTO {
 	private String passwd;
 	private String name;
 	private String email;
-	private String addr1;
+	private String addr1;//주소 추가
 	private String addr2;
 	private String addr3;
 	private Date join_date;
-	
-	
+	//getter,setter, toString(), 기본생성자만 만듦
 	public String getAddr1() {
 		return addr1;
 	}
@@ -31,8 +30,7 @@ public class MemberDTO {
 	public void setAddr3(String addr3) {
 		this.addr3 = addr3;
 	}
-	
-	//getter,setter, toString(), 기본생성자만 만듦
+
 	public String getUserid() {
 		return userid;
 	}
@@ -66,7 +64,7 @@ public class MemberDTO {
 	@Override
 	public String toString() {
 		return "MemberDTO [userid=" + userid + ", passwd=" + passwd + ", name=" + name + ", email=" + email
-				+ ", join_date=" + join_date + ", addr1=" + addr1 + ", addr2=" + addr2 + ", addr3=" + addr3 + "]";
+				+ ", join_date=" + join_date + "]";
 	}
 	public MemberDTO() {
 

@@ -57,9 +57,10 @@ function product_write(){
 		<td><textarea rows="5" cols="60" 
 			name="description" id="description"></textarea>
 			<script>
+			//CKEDITOR.replace("description"); 
 			CKEDITOR.replace("description",{
-				filebrowserUploadUrl : "${path}/imageUpload.do"
-			});
+				filebrowserUploadUrl : "${path}/imageUpload.do",
+			}); 
 			</script>	
 			
 		</td>
